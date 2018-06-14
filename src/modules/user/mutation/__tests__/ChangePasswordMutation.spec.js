@@ -1,13 +1,8 @@
 import { graphql } from 'graphql';
-import { schema } from '../../schema';
-import {
-  User,
-} from '../../model';
-import { generateToken } from '../../auth';
-import {
-  getContext,
-  setupTest,
-} from '../../../test/helper';
+import { schema } from '../../../../schema';
+import { User } from '../../model';
+import { generateToken } from '../../../../auth';
+import { getContext, setupTest } from '../../../../../test/helper';
 
 beforeEach(async () => await setupTest());
 
@@ -32,7 +27,7 @@ it('should not change password of non authorized user', async () => {
   const result = await graphql(schema, query, rootValue, context);
   const { errors } = result;
 
-  expect(errors.length).toBe(1)
+  expect(errors.length).toBe(1);
   expect(errors[0].message).toBe('invalid user');
 });
 

@@ -1,13 +1,8 @@
 import { graphql } from 'graphql';
-import { schema } from '../../schema';
-import {
-  User,
-} from '../../model';
-import { generateToken } from '../../auth';
-import {
-  getContext,
-  setupTest,
-} from '../../../test/helper';
+import { schema } from '../../../../schema';
+import { User } from '../../model';
+import { generateToken } from '../../../../auth';
+import { getContext, setupTest } from '../../../../../test/helper';
 
 beforeEach(async () => await setupTest());
 
@@ -32,7 +27,6 @@ it('should not login if email is not in the database', async () => {
 
   const result = await graphql(schema, query, rootValue, context);
   const { LoginEmail } = result.data;
-
 
   expect(LoginEmail.token).toBe(null);
   expect(LoginEmail.error).toBe('INVALID_EMAIL_PASSWORD');

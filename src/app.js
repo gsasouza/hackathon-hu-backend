@@ -15,21 +15,23 @@ import { print } from 'graphql/language';
 import { schema } from './schema';
 import { jwtSecret } from './config';
 import { getUser } from './auth';
-import * as loaders from './loader';
+import * as loaders from './loaders';
 
 const app = new Koa();
 const router = new Router();
 
 app.keys = jwtSecret;
 
-const graphqlSettingsPerReq = async (req) => {
-
+const graphqlSettingsPerReq = async req => {
   const { user } = await getUser(req.header.authorization);
 
-  const dataloaders = Object.keys(loaders).reduce((dataloaders, loaderKey) => ({
-    ...dataloaders,
-    [loaderKey]: loaders[loaderKey].getLoader(),
-  }), {});
+  const dataloaders = Object.keys(loaders).reduce(
+    (dataloaders, loaderKey) => ({
+      ...dataloaders,
+      [loaderKey]: loaders[loaderKey].getLoader(),
+    }),
+    {},
+  );
 
   return {
     graphiql: process.env.NODE_ENV !== 'production',
@@ -44,7 +46,7 @@ const graphqlSettingsPerReq = async (req) => {
       console.log(variables);
       console.log(result);
     },
-    formatError: (error) => {
+    formatError: error => {
       console.log(error.message);
       console.log(error.locations);
       console.log(error.stack);

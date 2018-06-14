@@ -2,12 +2,15 @@
 
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql';
 import { globalIdField, connectionArgs, fromGlobalId } from 'graphql-relay';
-import { NodeInterface } from '../interface/NodeInterface';
 
-import UserType from './UserType';
 import { NodeField } from '../interface/NodeInterface';
-import { UserLoader } from '../loader';
-import UserConnection from '../connection/UserConnection';
+import { UserLoader, ArticleLoader } from '../loaders';
+
+import UserConnection from '../modules/user/UserConnection';
+import UserType from '../modules/user/UserType';
+
+import ArticleConnection from '../modules/article/ArticleConnection';
+import ArticleType from '../modules/article/ArticleType';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -39,6 +42,28 @@ export default new GraphQLObjectType({
         },
       },
       resolve: (obj, args, context) => UserLoader.loadUsers(context, args),
+    },
+    article: {
+      type: ArticleType,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: (obj, args, context) => {
+        const { id } = fromGlobalId(args.id);
+        return ArticleLoader.load(context, id);
+      },
+    },
+    articles: {
+      type: ArticleConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        search: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (obj, args, context) => ArticleLoader.loadArticles(context, args),
     },
   }),
 });

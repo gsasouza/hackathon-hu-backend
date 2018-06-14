@@ -1,7 +1,52 @@
+"""Article data"""
+type Article implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  title: String
+  description: String
+  category: String
+  createdBy: Boolean
+  tags: [String]
+}
+
+input ArticleAddInput {
+  title: String!
+  description: String!
+  category: String!
+  tags: String
+  clientMutationId: String
+}
+
+type ArticleAddPayload {
+  article: Article
+  error: String
+  clientMutationId: String
+}
+
+"""A connection to a list of items."""
+type ArticleConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ArticleEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type ArticleEdge {
+  """The item at the end of the edge"""
+  node: Article
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 input ChangePasswordInput {
   oldPassword: String!
 
-  # user new password
+  """user new password"""
   password: String!
   clientMutationId: String
 }
@@ -28,40 +73,47 @@ type Mutation {
   LoginEmail(input: LoginEmailInput!): LoginEmailPayload
   RegisterEmail(input: RegisterEmailInput!): RegisterEmailPayload
   ChangePassword(input: ChangePasswordInput!): ChangePasswordPayload
+  ArticleAdd(input: ArticleAddInput!): ArticleAddPayload
 }
 
-# An object with an ID
+"""An object with an ID"""
 interface Node {
-  # The id of the object.
+  """The id of the object."""
   id: ID!
 }
 
-# Information about pagination in a connection.
+"""Information about pagination in a connection."""
 type PageInfo {
-  # When paginating forwards, are there more items?
+  """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
 
-  # When paginating backwards, are there more items?
+  """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
-  # When paginating backwards, the cursor to continue.
+  """When paginating backwards, the cursor to continue."""
   startCursor: String
 
-  # When paginating forwards, the cursor to continue.
+  """When paginating forwards, the cursor to continue."""
   endCursor: String
 }
 
-# The root of all... queries
-type Query implements Node {
-  # The ID of an object
-  id: ID!
+"""The root of all... queries"""
+type Query {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
   me: User
   user(id: ID!): User
   users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
+  article(id: ID!): Article
+  articles(after: String, first: Int, before: String, last: Int, search: String): ArticleConnection
 }
 
 input RegisterEmailInput {
   name: String!
+  university: String!
   email: String!
   password: String!
   clientMutationId: String
@@ -73,9 +125,9 @@ type RegisterEmailPayload {
   clientMutationId: String
 }
 
-# User data
+"""User data"""
 type User implements Node {
-  # The ID of an object
+  """The ID of an object"""
   id: ID!
   _id: String
   name: String
@@ -83,21 +135,21 @@ type User implements Node {
   active: Boolean
 }
 
-# A connection to a list of items.
+"""A connection to a list of items."""
 type UserConnection {
-  # Information to aid in pagination.
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  # A list of edges.
+  """A list of edges."""
   edges: [UserEdge]
   count: Int
 }
 
-# An edge in a connection.
+"""An edge in a connection."""
 type UserEdge {
-  # The item at the end of the edge
+  """The item at the end of the edge"""
   node: User
 
-  # A cursor for use in pagination
+  """A cursor for use in pagination"""
   cursor: String!
 }

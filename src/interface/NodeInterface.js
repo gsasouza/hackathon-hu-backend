@@ -2,11 +2,11 @@
 
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
 
-import User from '../loader/UserLoader';
-import { UserLoader } from '../loader';
+import User from '../modules/user/UserLoader';
+import { UserLoader } from '../loaders';
 
 import QueryType from '../type/QueryType';
-import UserType from '../type/UserType';
+import UserType from '../modules/user/UserType';
 
 const { nodeField, nodeInterface } = nodeDefinitions(
   // A method that maps from a global id to an object

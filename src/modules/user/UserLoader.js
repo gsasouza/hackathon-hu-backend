@@ -1,15 +1,17 @@
 // @flow
 import DataLoader from 'dataloader';
-import { User as UserModel } from '../model';
 import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongoose-loader';
 
 import type { ConnectionArguments } from 'graphql-relay';
-import type { GraphQLContext } from '../TypeDefinition';
+import type { GraphQLContext } from '../../TypeDefinition';
+
+import UserModel from './UserModel';
 
 type UserType = {
   id: string,
   _id: string,
   name: string,
+  university: string,
   password: string,
   email: string,
   active: boolean,
@@ -19,6 +21,7 @@ export default class User {
   id: string;
   _id: string;
   name: string;
+  university: string;
   email: string;
   active: boolean;
 
@@ -26,6 +29,7 @@ export default class User {
     this.id = data.id;
     this._id = data._id;
     this.name = data.name;
+    this.university = data.university;
 
     // you can only see your own email, and your active status
     if (user && user._id.equals(data._id)) {

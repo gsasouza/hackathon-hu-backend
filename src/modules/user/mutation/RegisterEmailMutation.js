@@ -3,12 +3,18 @@
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
-import { User } from '../model';
-import { generateToken } from '../auth';
+import User from '../UserModel';
+import { generateToken } from '../../../auth';
 
 export default mutationWithClientMutationId({
-  name: 'LoginEmail',
+  name: 'RegisterEmail',
   inputFields: {
+    name: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    university: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
     email: {
       type: new GraphQLNonNull(GraphQLString),
     },
@@ -16,24 +22,23 @@ export default mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  mutateAndGetPayload: async ({ email, password }) => {
-    const user = await User.findOne({ email: email.toLowerCase() });
+  mutateAndGetPayload: async ({ name, email, password, university }) => {
+    let user = await User.findOne({ email: email.toLowerCase() });
 
-    if (!user) {
+    if (user) {
       return {
         token: null,
-        error: 'INVALID_EMAIL_PASSWORD',
+        error: 'EMAIL_ALREADY_IN_USE',
       };
     }
 
-    const correctPassword = user.authenticate(password);
-
-    if (!correctPassword) {
-      return {
-        token: null,
-        error: 'INVALID_EMAIL_PASSWORD',
-      };
-    }
+    user = new User({
+      name,
+      email,
+      password,
+      university,
+    });
+    await user.save();
 
     return {
       token: generateToken(user),
