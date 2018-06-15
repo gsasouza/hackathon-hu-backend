@@ -58,14 +58,27 @@ export const clearCache = ({ dataloaders }: GraphQLContext, id: string) => {
   return dataloaders.ArticleLoader.clear(id.toString());
 };
 
+const removeFalsy = obj => {
+  let newObj = {};
+  Object.keys(obj).forEach(prop => {
+    if (obj[prop]) {
+      newObj[prop] = obj[prop];
+    }
+  });
+  return newObj;
+};
+
 export const loadArticles = async (context: GraphQLContext, args: ConnectionArguments) => {
-  // TODO: specify conditions
+  console.log(args);
   const articles = ArticleModel.find({});
 
-  return connectionFromMongoCursor({
+  const data = await connectionFromMongoCursor({
     cursor: articles,
     context,
-    args,
+    args: removeFalsy(args),
     loader: load,
   });
+
+  console.log(data);
+  return data;
 };

@@ -5,6 +5,7 @@ import { globalIdField } from 'graphql-relay';
 
 import { NodeInterface } from '../../interface/NodeInterface';
 import * as UserLoader from '../user/UserLoader';
+import UserType from '../user/UserType';
 
 export default new GraphQLObjectType({
   name: 'Article',
@@ -28,8 +29,11 @@ export default new GraphQLObjectType({
       resolve: article => article.category,
     },
     createdBy: {
-      type: GraphQLBoolean,
-      resolve: (article, args, context) => UserLoader.load(context, article.createdBy),
+      type: UserType,
+      resolve: (article, args, context) => {
+        console.log(article.createdBy);
+        return UserLoader.load(context, article.createdBy);
+      },
     },
     tags: {
       type: new GraphQLList(GraphQLString),

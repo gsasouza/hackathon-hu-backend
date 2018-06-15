@@ -24,12 +24,18 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async ({ title, description, category, tags = [] }, context) => {
-    console.log(context);
+    const { user } = context;
+
+    if (!user) {
+      throw new Error('Unauthenticated user');
+    }
+
     const article = await new Article({
       title,
       description,
       category,
       tags,
+      createdBy: user,
     }).save();
 
     return {

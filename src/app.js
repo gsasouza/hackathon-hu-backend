@@ -10,6 +10,7 @@ import graphqlHttp from 'koa-graphql';
 import graphqlBatchHttpWrapper from 'koa-graphql-batch';
 import logger from 'koa-logger';
 import Router from 'koa-router';
+import { koaPlayground } from 'graphql-playground-middleware';
 import { print } from 'graphql/language';
 
 import { schema } from './schema';
@@ -21,6 +22,13 @@ const app = new Koa();
 const router = new Router();
 
 app.keys = jwtSecret;
+
+router.all(
+  '/playground',
+  koaPlayground({
+    endpoint: '/graphql',
+  }),
+);
 
 const graphqlSettingsPerReq = async req => {
   const { user } = await getUser(req.header.authorization);
@@ -42,9 +50,9 @@ const graphqlSettingsPerReq = async req => {
       dataloaders,
     },
     extensions: ({ document, variables, operationName, result }) => {
-      console.log(print(document));
-      console.log(variables);
-      console.log(result);
+      // console.log(print(document));
+      // console.log(variables);
+      // console.log(result);
     },
     formatError: error => {
       console.log(error.message);
