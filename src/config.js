@@ -21,7 +21,7 @@ const dBproduction = process.env.MONGO_URL || 'mongodb://localhost/database';
 export const databaseConfig = process.env.NODE_ENV === 'production' ? dBproduction : dBdevelopment;
 
 // Export GraphQL Server settings
-export const graphqlPort = process.env.GRAPHQL_PORT || 5000;
+export const graphqlPort = process.env.PORT || 5000;
 export const jwtSecret = process.env.JWT_KEY || 'secret_key';
 
 //mail
