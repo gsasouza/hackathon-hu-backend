@@ -2,7 +2,8 @@
 import 'babel-polyfill';
 import app from './app';
 import connectDatabase from './database';
-import { graphqlPort } from './config';
+// import { graphqlPort } from './config';
+const port = process.env.PORT || 5000;
 
 (async () => {
   try {
@@ -13,6 +14,6 @@ import { graphqlPort } from './config';
     process.exit(1);
   }
 
-  await app.listen(graphqlPort);
-  console.log(`Server started on port ${graphqlPort}`);
+  await app.listen(port);
+  console.log(`Server started on port ${port}`);
 })();
