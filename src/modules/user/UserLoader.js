@@ -15,6 +15,7 @@ type UserType = {
   password: string,
   email: string,
   active: boolean,
+  isAdmin: boolean,
 };
 
 export default class User {
@@ -24,18 +25,15 @@ export default class User {
   university: string;
   email: string;
   active: boolean;
+  isAdmin: boolean;
 
-  constructor(data: UserType, { user }: GraphQLContext) {
+  constructor(data: UserType) {
     this.id = data.id;
     this._id = data._id;
     this.name = data.name;
     this.university = data.university;
-
-    // you can only see your own email, and your active status
-    if (user && user._id.equals(data._id)) {
-      this.email = data.email;
-      this.active = data.active;
-    }
+    this.isAdmin = data.isAdmin;
+    this.email = data.email;
   }
 }
 

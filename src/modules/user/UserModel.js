@@ -23,6 +23,10 @@ const Schema = new mongoose.Schema(
       required: false,
       index: true,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
     active: {
       type: Boolean,
       default: true,

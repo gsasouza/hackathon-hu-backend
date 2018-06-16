@@ -8,18 +8,28 @@ const Schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    authors: {
+      type: [String],
+      required: true,
+    },
+    doiCode: {
       type: String,
+      required: true,
+      default: '00',
+    },
+    publishDate: {
+      type: Date,
+      required: true,
+      default: Date.now,
     },
     category: {
       type: String,
     },
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+    magazine: {
+      type: String,
     },
-    tags: {
-      type: [String],
+    url: {
+      type: String,
     },
   },
   {

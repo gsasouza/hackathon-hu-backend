@@ -10,29 +10,36 @@ type ArticleType = {
   id: string,
   _id: string,
   title: string,
-  description: string,
+  authors: string[],
+  doiCode: string,
+  publishDate: string,
   category: string,
-  createdBy: Object,
-  tags: string[],
+  magazine: string,
+  url: string,
 };
 
 export default class Article {
   id: string;
   _id: string;
   title: string;
-  description: string;
+  authors: string[];
+  doiCode: string;
+  publishDate: string;
   category: string;
-  createdBy: Object;
-  tags: string[];
+  magazine: string;
+  url: string;
 
   constructor(data: ArticleType) {
     this.id = data.id;
     this._id = data._id;
     this.title = data.title;
-    this.description = data.description;
+    this.authors = data.authors;
+    this.doiCode = data.doiCode;
+    this.publishDate = data.publishDate;
     this.category = data.category;
-    this.createdBy = data.createdBy;
-    this.tags = data.tags;
+    this.magazine = data.magazine;
+    this.url = data.url;
+    this.category = data.category;
   }
 }
 
@@ -69,16 +76,12 @@ const removeFalsy = obj => {
 };
 
 export const loadArticles = async (context: GraphQLContext, args: ConnectionArguments) => {
-  console.log(args);
   const articles = ArticleModel.find({});
 
-  const data = await connectionFromMongoCursor({
+  return connectionFromMongoCursor({
     cursor: articles,
     context,
     args: removeFalsy(args),
     loader: load,
   });
-
-  console.log(data);
-  return data;
 };

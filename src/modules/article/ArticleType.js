@@ -1,11 +1,9 @@
 // @flow
 
-import { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLList } from 'graphql';
+import { GraphQLObjectType, GraphQLString, GraphQLList } from 'graphql';
 import { globalIdField } from 'graphql-relay';
 
 import { NodeInterface } from '../../interface/NodeInterface';
-import * as UserLoader from '../user/UserLoader';
-import UserType from '../user/UserType';
 
 export default new GraphQLObjectType({
   name: 'Article',
@@ -20,24 +18,29 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: article => article.title,
     },
-    description: {
+    authors: {
+      type: GraphQLList(GraphQLString),
+      resolve: article => article.authors,
+    },
+    doiCode: {
       type: GraphQLString,
-      resolve: article => article.description,
+      resolve: article => article.doiCode,
+    },
+    publishDate: {
+      type: GraphQLString,
+      resolve: article => article.publishDate,
     },
     category: {
       type: GraphQLString,
       resolve: article => article.category,
     },
-    createdBy: {
-      type: UserType,
-      resolve: (article, args, context) => {
-        console.log(article.createdBy);
-        return UserLoader.load(context, article.createdBy);
-      },
+    magazine: {
+      type: GraphQLString,
+      resolve: article => article.magazine,
     },
-    tags: {
-      type: new GraphQLList(GraphQLString),
-      resolve: article => article.tags,
+    url: {
+      type: GraphQLString,
+      resolve: article => article.url,
     },
   }),
   interfaces: () => [NodeInterface],

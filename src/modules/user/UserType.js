@@ -17,6 +17,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: user => user.name,
     },
+    isAdmin: {
+      type: GraphQLBoolean,
+      resolve: user => user.isAdmin,
+    },
     email: {
       type: GraphQLString,
       resolve: user => user.email,
