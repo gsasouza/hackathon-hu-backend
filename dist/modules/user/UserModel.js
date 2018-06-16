@@ -34,6 +34,7 @@ var Schema = new _mongoose2.default.Schema(
     email: {
       type: String,
       required: false,
+      unique: true,
       index: true,
     },
     isAdmin: {

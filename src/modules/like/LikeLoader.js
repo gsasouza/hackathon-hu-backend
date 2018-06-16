@@ -60,10 +60,12 @@ const removeFalsy = obj => {
 };
 
 export const loadLikes = async (context: GraphQLContext, args: ConnectionArguments) => {
-  const actions = LikeModel.find({});
+  const likes = LikeModel.find({
+    article: args,
+  });
 
   return connectionFromMongoCursor({
-    cursor: actions,
+    cursor: likes,
     context,
     args: removeFalsy(args),
     loader: load,

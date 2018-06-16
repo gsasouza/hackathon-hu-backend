@@ -134,6 +134,9 @@ export default new GraphQLObjectType({
       type: LikeConnection.connectionType,
       args: {
         ...connectionArgs,
+        article: {
+          type: GraphQLID,
+        },
       },
       resolve: (obj, args, context) => LikeLoader.loadLikes(context, args),
     },
@@ -141,7 +144,7 @@ export default new GraphQLObjectType({
       type: GraphQLBoolean,
       args: {
         article: {
-          type: new GraphQLNonNull(GraphQLID),
+          type: GraphQLID,
         },
       },
       resolve: (obj, args, context) => {
@@ -154,6 +157,9 @@ export default new GraphQLObjectType({
       type: FollowConnection.connectionType,
       args: {
         ...connectionArgs,
+        article: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
       },
       resolve: (obj, args, context) => FollowLoader.loadFollows(context, args),
     },

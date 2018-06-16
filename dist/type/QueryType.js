@@ -198,7 +198,11 @@ exports.default = new _graphql.GraphQLObjectType({
       },
       likes: {
         type: _LikeConnection2.default.connectionType,
-        args: _extends({}, _graphqlRelay.connectionArgs),
+        args: _extends({}, _graphqlRelay.connectionArgs, {
+          article: {
+            type: _graphql.GraphQLID,
+          },
+        }),
         resolve: function resolve(obj, args, context) {
           return _loaders.LikeLoader.loadLikes(context, args);
         },
@@ -207,7 +211,7 @@ exports.default = new _graphql.GraphQLObjectType({
         type: _graphql.GraphQLBoolean,
         args: {
           article: {
-            type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
+            type: _graphql.GraphQLID,
           },
         },
         resolve: function resolve(obj, args, context) {
@@ -220,7 +224,11 @@ exports.default = new _graphql.GraphQLObjectType({
 
       follows: {
         type: _FollowConnection2.default.connectionType,
-        args: _extends({}, _graphqlRelay.connectionArgs),
+        args: _extends({}, _graphqlRelay.connectionArgs, {
+          article: {
+            type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
+          },
+        }),
         resolve: function resolve(obj, args, context) {
           return _loaders.FollowLoader.loadFollows(context, args);
         },

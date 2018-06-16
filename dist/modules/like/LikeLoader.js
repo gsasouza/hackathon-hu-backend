@@ -152,17 +152,19 @@ var removeFalsy = function removeFalsy(obj) {
 var loadLikes = (exports.loadLikes = (function() {
   var _ref4 = _asyncToGenerator(
     /*#__PURE__*/ regeneratorRuntime.mark(function _callee2(context, args) {
-      var actions;
+      var likes;
       return regeneratorRuntime.wrap(
         function _callee2$(_context2) {
           while (1) {
             switch ((_context2.prev = _context2.next)) {
               case 0:
-                actions = _LikeModel2.default.find({});
+                likes = _LikeModel2.default.find({
+                  article: args,
+                });
                 return _context2.abrupt(
                   'return',
                   (0, _graphqlMongooseLoader.connectionFromMongoCursor)({
-                    cursor: actions,
+                    cursor: likes,
                     context: context,
                     args: removeFalsy(args),
                     loader: load,

@@ -303,9 +303,9 @@ type Query {
   author(id: ID!): Author
   authors(after: String, first: Int, before: String, last: Int, search: String): AuthorConnection
   likesFromMe(article: ID!): Boolean
-  likes(after: String, first: Int, before: String, last: Int): LikeConnection
-  followsFromMe(article: ID!): Boolean
-  follows(after: String, first: Int, before: String, last: Int): FollowConnection
+  likes(after: String, first: Int, before: String, last: Int, article: ID): LikeConnection
+  followsFromMe(article: ID): Boolean
+  follows(after: String, first: Int, before: String, last: Int, article: ID!): FollowConnection
 }
 
 input RegisterEmailInput {
