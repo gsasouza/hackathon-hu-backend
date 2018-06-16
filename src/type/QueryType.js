@@ -1,10 +1,10 @@
 // @flow
 
-import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql';
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID, GraphQLBoolean } from 'graphql';
 import { globalIdField, connectionArgs, fromGlobalId } from 'graphql-relay';
 
 import { NodeField } from '../interface/NodeInterface';
-import { UserLoader, ArticleLoader, ActionLoader, AuthorLoader } from '../loaders';
+import { UserLoader, ArticleLoader, ActionLoader, AuthorLoader, LikeLoader, FollowLoader } from '../loaders';
 
 import UserConnection from '../modules/user/UserConnection';
 import UserType from '../modules/user/UserType';
@@ -17,6 +17,9 @@ import ActionType from '../modules/action/ActionType';
 
 import AuthorConnection from '../modules/author/AuthorConnection';
 import AuthorType from '../modules/author/AuthorType';
+
+import LikeConnection from '../modules/like/LikeConnection';
+import FollowConnection from '../modules/follow/FollowConnection';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -114,6 +117,45 @@ export default new GraphQLObjectType({
         },
       },
       resolve: (obj, args, context) => AuthorLoader.loadAuthors(context, args),
+    },
+    likesFromMe: {
+      type: GraphQLBoolean,
+      args: {
+        article: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: (obj, args, context) => {
+        const { id } = fromGlobalId(args.article);
+        return LikeLoader.loadLikesFromMe(context, id);
+      },
+    },
+    likes: {
+      type: LikeConnection.connectionType,
+      args: {
+        ...connectionArgs,
+      },
+      resolve: (obj, args, context) => LikeLoader.loadLikes(context, args),
+    },
+    followsFromMe: {
+      type: GraphQLBoolean,
+      args: {
+        article: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: (obj, args, context) => {
+        const { id } = fromGlobalId(args.article);
+        return FollowLoader.loadFollowsFromMe(context, id);
+      },
+    },
+
+    follows: {
+      type: FollowConnection.connectionType,
+      args: {
+        ...connectionArgs,
+      },
+      resolve: (obj, args, context) => FollowLoader.loadFollows(context, args),
     },
   }),
 });

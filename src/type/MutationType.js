@@ -15,6 +15,12 @@ import SignFeed from '../modules/signFeed/mutation/SignFeedMutation';
 import SignFeedCancel from '../modules/signFeed/mutation/SignCancelMutation';
 import SignFeedCancelCode from '../modules/signFeed/mutation/SignCancelCodeMutation';
 
+import LikeAdd from '../modules/like/mutation/LikeAddMutation';
+import LikeRemove from '../modules/like/mutation/LikeRemoveMutation';
+
+import FollowAdd from '../modules/follow/mutation/FollowAddMutation';
+import FollowRemove from '../modules/follow/mutation/FollowRemoveMutation';
+
 export default new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
@@ -31,5 +37,11 @@ export default new GraphQLObjectType({
     SignFeed,
     SignFeedCancel,
     SignFeedCancelCode,
+    // like
+    LikeAdd,
+    LikeRemove,
+    // follow
+    FollowAdd,
+    FollowRemove,
   }),
 });

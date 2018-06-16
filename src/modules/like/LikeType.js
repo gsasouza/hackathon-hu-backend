@@ -11,10 +11,10 @@ import UserType from '../user/UserType';
 import { UserLoader, ArticleLoader } from '../../loaders';
 
 export default new GraphQLObjectType({
-  name: 'Follow',
-  description: 'Follow data',
+  name: 'Like',
+  description: 'Like data',
   fields: () => ({
-    id: globalIdField('Follow'),
+    id: globalIdField('Like'),
     _id: {
       type: GraphQLString,
       resolve: like => like._id,
