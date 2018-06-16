@@ -10,8 +10,6 @@ var _database = require('./database');
 
 var _database2 = _interopRequireDefault(_database);
 
-var _config = require('./config');
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -46,6 +44,9 @@ function _asyncToGenerator(fn) {
   };
 }
 
+// import { graphqlPort } from './config';
+var port = process.env.PORT || 8000;
+
 _asyncToGenerator(
   /*#__PURE__*/ regeneratorRuntime.mark(function _callee() {
     var info;
@@ -74,10 +75,10 @@ _asyncToGenerator(
 
             case 11:
               _context.next = 13;
-              return _app2.default.listen(_config.graphqlPort);
+              return _app2.default.listen(port);
 
             case 13:
-              console.log('Server started on port ' + _config.graphqlPort);
+              console.log('Server started on port ' + port);
 
             case 14:
             case 'end':
