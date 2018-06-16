@@ -18,32 +18,38 @@ exports.default = new _graphql.GraphQLObjectType({
       id: (0, _graphqlRelay.globalIdField)('Action'),
       _id: {
         type: _graphql.GraphQLString,
-        resolve: function resolve(article) {
-          return article._id;
+        resolve: function resolve(action) {
+          return action._id;
         },
       },
       title: {
         type: _graphql.GraphQLString,
-        resolve: function resolve(article) {
-          return article.title;
+        resolve: function resolve(action) {
+          return action.title;
+        },
+      },
+      description: {
+        type: _graphql.GraphQLString,
+        resolve: function resolve(action) {
+          return action.description;
         },
       },
       code: {
         type: _graphql.GraphQLString,
-        resolve: function resolve(article) {
-          return article.code;
+        resolve: function resolve(action) {
+          return action.code;
         },
       },
       unit: {
         type: _graphql.GraphQLString,
-        resolve: function resolve(article) {
-          return article.unit;
+        resolve: function resolve(action) {
+          return action.unit;
         },
       },
       situation: {
         type: _graphql.GraphQLString,
-        resolve: function resolve(article) {
-          return article.situation;
+        resolve: function resolve(action) {
+          return action.situation;
         },
       },
     };

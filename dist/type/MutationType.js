@@ -22,6 +22,10 @@ var _ArticleAddMutation = require('../modules/article/mutation/ArticleAddMutatio
 
 var _ArticleAddMutation2 = _interopRequireDefault(_ArticleAddMutation);
 
+var _ActionAddMutation = require('../modules/action/mutation/ActionAddMutation');
+
+var _ActionAddMutation2 = _interopRequireDefault(_ActionAddMutation);
+
 var _AuthorAddMutation = require('../modules/author/mutation/AuthorAddMutation');
 
 var _AuthorAddMutation2 = _interopRequireDefault(_AuthorAddMutation);
@@ -70,6 +74,8 @@ exports.default = new _graphql.GraphQLObjectType({
       LoginEmail: _LoginEmailMutation2.default,
       RegisterEmail: _RegisterEmailMutation2.default,
       ChangePassword: _ChangePasswordMutation2.default,
+      //action
+      ActionAdd: _ActionAddMutation2.default,
       // article
       ArticleAdd: _ArticleAddMutation2.default,
       //author

@@ -16,9 +16,12 @@ var Schema = new _mongoose2.default.Schema(
   {
     code: {
       type: String,
-      required: true,
     },
     title: {
+      type: String,
+      required: true,
+    },
+    description: {
       type: String,
       required: true,
     },
@@ -28,7 +31,6 @@ var Schema = new _mongoose2.default.Schema(
     },
     situation: {
       type: String,
-      required: true,
     },
   },
   {
