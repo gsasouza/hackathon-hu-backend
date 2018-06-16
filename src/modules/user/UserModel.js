@@ -21,6 +21,7 @@ const Schema = new mongoose.Schema(
     email: {
       type: String,
       required: false,
+      unique: true,
       index: true,
     },
     isAdmin: {
