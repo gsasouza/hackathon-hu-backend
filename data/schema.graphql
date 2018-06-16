@@ -4,9 +4,23 @@ type Action implements Node {
   id: ID!
   _id: String
   title: String
+  description: String
   code: String
   unit: String
   situation: String
+}
+
+input ActionAddInput {
+  title: String!
+  description: String!
+  unit: String!
+  clientMutationId: String
+}
+
+type ActionAddPayload {
+  action: Action
+  error: String
+  clientMutationId: String
 }
 
 """A connection to a list of items."""
@@ -253,6 +267,7 @@ type Mutation {
   LoginEmail(input: LoginEmailInput!): LoginEmailPayload
   RegisterEmail(input: RegisterEmailInput!): RegisterEmailPayload
   ChangePassword(input: ChangePasswordInput!): ChangePasswordPayload
+  ActionAdd(input: ActionAddInput!): ActionAddPayload
   ArticleAdd(input: ArticleAddInput!): ArticleAddPayload
   AuthorAdd(input: AuthorAddInput!): AuthorAddPayload
   AuthorRemove(input: AuthorRemoveInput!): AuthorRemovePayload

@@ -12,23 +12,27 @@ export default new GraphQLObjectType({
     id: globalIdField('Action'),
     _id: {
       type: GraphQLString,
-      resolve: article => article._id,
+      resolve: action => action._id,
     },
     title: {
       type: GraphQLString,
-      resolve: article => article.title,
+      resolve: action => action.title,
+    },
+    description: {
+      type: GraphQLString,
+      resolve: action => action.description,
     },
     code: {
       type: GraphQLString,
-      resolve: article => article.code,
+      resolve: action => action.code,
     },
     unit: {
       type: GraphQLString,
-      resolve: article => article.unit,
+      resolve: action => action.unit,
     },
     situation: {
       type: GraphQLString,
-      resolve: article => article.situation,
+      resolve: action => action.situation,
     },
   }),
   interfaces: () => [NodeInterface],

@@ -6,9 +6,12 @@ const Schema = new mongoose.Schema(
   {
     code: {
       type: String,
-      required: true,
     },
     title: {
+      type: String,
+      required: true,
+    },
+    description: {
       type: String,
       required: true,
     },
@@ -18,7 +21,6 @@ const Schema = new mongoose.Schema(
     },
     situation: {
       type: String,
-      required: true,
     },
   },
   {

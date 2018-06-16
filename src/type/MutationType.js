@@ -8,6 +8,8 @@ import ChangePassword from '../modules/user/mutation/ChangePasswordMutation';
 
 import ArticleAdd from '../modules/article/mutation/ArticleAddMutation';
 
+import ActionAdd from '../modules/action/mutation/ActionAddMutation';
+
 import AuthorAdd from '../modules/author/mutation/AuthorAddMutation';
 import AuthorRemove from '../modules/author/mutation/AuthorRemoveMutation';
 
@@ -28,6 +30,8 @@ export default new GraphQLObjectType({
     LoginEmail,
     RegisterEmail,
     ChangePassword,
+    //action
+    ActionAdd,
     // article
     ArticleAdd,
     //author
