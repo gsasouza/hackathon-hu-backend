@@ -6,7 +6,7 @@ const Schema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      unique: true,
     },
     authors: {
       type: [String],
@@ -14,18 +14,14 @@ const Schema = new mongoose.Schema(
     },
     doiCode: {
       type: String,
-      required: true,
-      default: '00',
     },
     publishDate: {
       type: Date,
-      required: true,
-      default: Date.now,
     },
-    category: {
+    similar: {
       type: String,
     },
-    magazine: {
+    num: {
       type: String,
     },
     url: {

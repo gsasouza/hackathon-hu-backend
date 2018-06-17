@@ -11,6 +11,7 @@ import graphqlBatchHttpWrapper from 'koa-graphql-batch';
 import logger from 'koa-logger';
 import Router from 'koa-router';
 import { koaPlayground } from 'graphql-playground-middleware';
+
 import { print } from 'graphql/language';
 
 import { schema } from './schema';

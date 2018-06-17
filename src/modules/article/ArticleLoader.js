@@ -5,6 +5,7 @@ import type { ConnectionArguments } from 'graphql-relay';
 
 import ArticleModel from './ArticleModel';
 import type { GraphQLContext } from '../../TypeDefinition';
+import json from './walderi.json';
 
 type ArticleType = {
   id: string,
@@ -84,4 +85,12 @@ export const loadArticles = async (context: GraphQLContext, args: ConnectionArgu
     args: removeFalsy(args),
     loader: load,
   });
+};
+
+export const importFromJson = async () => {
+  try {
+    await ArticleModel.insertMany(json, { ordered: false });
+  } catch (err) {
+    err.writeErrors.map(e => console.log(e.toJSON()));
+  }
 };
