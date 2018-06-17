@@ -58,12 +58,14 @@ function _classCallCheck(instance, Constructor) {
 var Action = function Action(data) {
   _classCallCheck(this, Action);
 
+  console.log(data);
   this.id = data.id;
   this._id = data._id;
   this.title = data.title;
   this.code = data.code;
   this.title = data.title;
   this.unit = data.unit;
+  this.description = data.description;
 };
 
 exports.default = Action;
@@ -160,9 +162,8 @@ var loadActions = (exports.loadActions = (function() {
           while (1) {
             switch ((_context2.prev = _context2.next)) {
               case 0:
-                console.log(args);
                 actions = _ActionModel2.default.find({});
-                _context2.next = 4;
+                _context2.next = 3;
                 return (0, _graphqlMongooseLoader.connectionFromMongoCursor)({
                   cursor: actions,
                   context: context,
@@ -170,13 +171,11 @@ var loadActions = (exports.loadActions = (function() {
                   loader: load,
                 });
 
-              case 4:
+              case 3:
                 data = _context2.sent;
-
-                console.log(data);
                 return _context2.abrupt('return', data);
 
-              case 7:
+              case 5:
               case 'end':
                 return _context2.stop();
             }

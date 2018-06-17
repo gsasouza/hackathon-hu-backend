@@ -45,7 +45,7 @@ function _asyncToGenerator(fn) {
 }
 
 // import { graphqlPort } from './config';
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 5000;
 
 _asyncToGenerator(
   /*#__PURE__*/ regeneratorRuntime.mark(function _callee() {

@@ -14,16 +14,26 @@ function _interopRequireDefault(obj) {
 
 var Schema = new _mongoose2.default.Schema(
   {
-    article: {
-      type: _mongoose2.default.Schema.Types.ObjectId,
-      ref: 'Article',
-    },
     title: {
       type: String,
     },
-    createdBy: {
-      type: _mongoose2.default.Schema.Types.ObjectId,
-      ref: 'User',
+    abstract: {
+      type: String,
+    },
+    tag: {
+      type: String,
+    },
+    link: {
+      type: String,
+    },
+    time: {
+      type: String,
+    },
+    date: {
+      type: String,
+    },
+    image: {
+      type: String,
     },
   },
   {
@@ -31,8 +41,8 @@ var Schema = new _mongoose2.default.Schema(
       createdAt: 'createdAt',
       updatedAt: 'updatedAt',
     },
-    collection: 'post',
+    collection: 'news',
   },
 );
 
-exports.default = _mongoose2.default.model('post', Schema);
+exports.default = _mongoose2.default.model('news', Schema);

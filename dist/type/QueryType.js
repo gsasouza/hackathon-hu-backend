@@ -66,6 +66,14 @@ var _FollowConnection = require('../modules/follow/FollowConnection');
 
 var _FollowConnection2 = _interopRequireDefault(_FollowConnection);
 
+var _NewsConnection = require('../modules/news/NewsConnection');
+
+var _NewsConnection2 = _interopRequireDefault(_NewsConnection);
+
+var _NewsType = require('../modules/news/NewsType');
+
+var _NewsType2 = _interopRequireDefault(_NewsType);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -231,6 +239,31 @@ exports.default = new _graphql.GraphQLObjectType({
         }),
         resolve: function resolve(obj, args, context) {
           return _loaders.FollowLoader.loadFollows(context, args);
+        },
+      },
+      new: {
+        type: _NewsType2.default,
+        args: {
+          id: {
+            type: new _graphql.GraphQLNonNull(_graphql.GraphQLID),
+          },
+        },
+        resolve: function resolve(obj, args, context) {
+          var _fromGlobalId7 = (0, _graphqlRelay.fromGlobalId)(args.id),
+            id = _fromGlobalId7.id;
+
+          return _loaders.NewsLoader.load(context, id);
+        },
+      },
+      news: {
+        type: _NewsConnection2.default.connectionType,
+        args: _extends({}, _graphqlRelay.connectionArgs, {
+          search: {
+            type: _graphql.GraphQLString,
+          },
+        }),
+        resolve: function resolve(obj, args, context) {
+          return _loaders.NewsLoader.loadNews(context, args);
         },
       },
     };

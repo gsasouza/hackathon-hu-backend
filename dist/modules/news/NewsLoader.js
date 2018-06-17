@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
-exports.loadLikesFromMe = exports.loadLikes = exports.clearCache = exports.load = exports.getLoader = undefined;
+exports.importFromJson = exports.loadNews = exports.clearCache = exports.load = exports.getLoader = undefined;
 
 var _dataloader = require('dataloader');
 
@@ -13,11 +13,13 @@ var _graphqlMongooseLoader = require('@entria/graphql-mongoose-loader');
 
 var _graphqlRelay = require('graphql-relay');
 
-var _LikeModel = require('./LikeModel');
+var _news = require('./news.json');
 
-var _LikeModel2 = _interopRequireDefault(_LikeModel);
+var _news2 = _interopRequireDefault(_news);
 
-var _NewsLoader = require('../news/NewsLoader');
+var _NewsModel = require('./NewsModel');
+
+var _NewsModel2 = _interopRequireDefault(_NewsModel);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -59,19 +61,24 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
-var Like = function Like(data) {
-  _classCallCheck(this, Like);
+var News = function News(data) {
+  _classCallCheck(this, News);
 
   this.id = data.id;
   this._id = data._id;
-  this.user = data.user;
-  this.article = data.article;
+  this.title = data.title;
+  this.abstract = data.abstract;
+  this.tag = data.tag;
+  this.link = data.link;
+  this.time = data.time;
+  this.date = data.date;
+  this.image = data.image;
 };
 
-exports.default = Like;
+exports.default = News;
 var getLoader = (exports.getLoader = function getLoader() {
   return new _dataloader2.default(function(ids) {
-    return (0, _graphqlMongooseLoader.mongooseLoader)(_LikeModel2.default, ids);
+    return (0, _graphqlMongooseLoader.mongooseLoader)(_NewsModel2.default, ids);
   });
 });
 
@@ -99,7 +106,7 @@ var load = (exports.load = (function() {
               case 2:
                 _context.prev = 2;
                 _context.next = 5;
-                return dataloaders.LikeLoader.load(id.toString());
+                return dataloaders.NewsLoader.load(id.toString());
 
               case 5:
                 data = _context.sent;
@@ -112,7 +119,7 @@ var load = (exports.load = (function() {
                 return _context.abrupt('return', null);
 
               case 8:
-                return _context.abrupt('return', viewerCanSee() ? new Like(data) : null);
+                return _context.abrupt('return', viewerCanSee() ? new News(data) : null);
 
               case 11:
                 _context.prev = 11;
@@ -140,7 +147,7 @@ var load = (exports.load = (function() {
 var clearCache = (exports.clearCache = function clearCache(_ref3, id) {
   var dataloaders = _ref3.dataloaders;
 
-  return dataloaders.LikeLoader.clear(id.toString());
+  return dataloaders.NewsLoader.clear(id.toString());
 });
 
 var removeFalsy = function removeFalsy(obj) {
@@ -153,22 +160,20 @@ var removeFalsy = function removeFalsy(obj) {
   return newObj;
 };
 
-var loadLikes = (exports.loadLikes = (function() {
+var loadNews = (exports.loadNews = (function() {
   var _ref4 = _asyncToGenerator(
     /*#__PURE__*/ regeneratorRuntime.mark(function _callee2(context, args) {
-      var likes;
+      var news;
       return regeneratorRuntime.wrap(
         function _callee2$(_context2) {
           while (1) {
             switch ((_context2.prev = _context2.next)) {
               case 0:
-                likes = _LikeModel2.default.find({
-                  article: (0, _graphqlRelay.fromGlobalId)(args.article).id,
-                });
+                news = _NewsModel2.default.find({});
                 return _context2.abrupt(
                   'return',
                   (0, _graphqlMongooseLoader.connectionFromMongoCursor)({
-                    cursor: likes,
+                    cursor: news,
                     context: context,
                     args: removeFalsy(args),
                     loader: load,
@@ -187,29 +192,36 @@ var loadLikes = (exports.loadLikes = (function() {
     }),
   );
 
-  return function loadLikes(_x3, _x4) {
+  return function loadNews(_x3, _x4) {
     return _ref4.apply(this, arguments);
   };
 })());
 
-var loadLikesFromMe = (exports.loadLikesFromMe = (function() {
+var importFromJson = (exports.importFromJson = (function() {
   var _ref5 = _asyncToGenerator(
-    /*#__PURE__*/ regeneratorRuntime.mark(function _callee3(context, args) {
-      var user, like;
+    /*#__PURE__*/ regeneratorRuntime.mark(function _callee3() {
       return regeneratorRuntime.wrap(
         function _callee3$(_context3) {
           while (1) {
             switch ((_context3.prev = _context3.next)) {
               case 0:
-                user = context.user;
+                _context3.prev = 0;
                 _context3.next = 3;
-                return _LikeModel2.default.find({ user: user._id, article: args });
+                return _NewsModel2.default.insertMany(_news2.default, { ordered: false });
 
               case 3:
-                like = _context3.sent;
-                return _context3.abrupt('return', !!like.length);
+                _context3.next = 8;
+                break;
 
               case 5:
+                _context3.prev = 5;
+                _context3.t0 = _context3['catch'](0);
+
+                _context3.t0.writeErrors.map(function(e) {
+                  return console.log(e.toJSON());
+                });
+
+              case 8:
               case 'end':
                 return _context3.stop();
             }
@@ -217,11 +229,12 @@ var loadLikesFromMe = (exports.loadLikesFromMe = (function() {
         },
         _callee3,
         undefined,
+        [[0, 5]],
       );
     }),
   );
 
-  return function loadLikesFromMe(_x5, _x6) {
+  return function importFromJson() {
     return _ref5.apply(this, arguments);
   };
 })());

@@ -25,8 +25,8 @@ _dotenvSafe2.default.load({
 });
 
 // Database Settings
-var dBdevelopment = process.env.MONGO_URL || 'mongodb://localhost/database';
-var dBproduction = process.env.MONGO_URL || 'mongodb://localhost/database';
+var dBdevelopment = process.env.MONGO_URL || 'mongodb://localhost/hackathon-hu';
+var dBproduction = process.env.MONGO_URL || 'mongodb://localhost/hackathon-hu';
 
 // Test Database Settings
 // const test = 'mongodb://localhost/awesome-test';

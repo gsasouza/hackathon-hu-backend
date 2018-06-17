@@ -31,6 +31,7 @@ exports.default = new _graphql.GraphQLObjectType({
       description: {
         type: _graphql.GraphQLString,
         resolve: function resolve(action) {
+          console.log(action);
           return action.description;
         },
       },

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
-exports.FollowLoader = exports.LikeLoader = exports.AuthorLoader = exports.ActionLoader = exports.ArticleLoader = exports.UserLoader = undefined;
+exports.NewsLoader = exports.FollowLoader = exports.LikeLoader = exports.AuthorLoader = exports.ActionLoader = exports.ArticleLoader = exports.UserLoader = undefined;
 
 var _UserLoader2 = require('./modules/user/UserLoader');
 
@@ -29,6 +29,10 @@ var _FollowLoader2 = require('./modules/follow/FollowLoader');
 
 var _FollowLoader = _interopRequireWildcard(_FollowLoader2);
 
+var _NewsLoader2 = require('./modules/news/NewsLoader');
+
+var _NewsLoader = _interopRequireWildcard(_NewsLoader2);
+
 function _interopRequireWildcard(obj) {
   if (obj && obj.__esModule) {
     return obj;
@@ -50,3 +54,4 @@ exports.ActionLoader = _ActionLoader;
 exports.AuthorLoader = _AuthorLoader;
 exports.LikeLoader = _LikeLoader;
 exports.FollowLoader = _FollowLoader;
+exports.NewsLoader = _NewsLoader;
