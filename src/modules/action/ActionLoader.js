@@ -12,6 +12,7 @@ type ActionType = {
   code: string,
   title: string,
   unit: string,
+  description: string,
   situation: string,
 };
 
@@ -22,14 +23,17 @@ export default class Action {
   title: string;
   unit: string;
   situation: string;
+  description: string;
 
   constructor(data: ActionType) {
+    console.log(data);
     this.id = data.id;
     this._id = data._id;
     this.title = data.title;
     this.code = data.code;
     this.title = data.title;
     this.unit = data.unit;
+    this.description = data.description;
   }
 }
 
@@ -66,7 +70,6 @@ const removeFalsy = obj => {
 };
 
 export const loadActions = async (context: GraphQLContext, args: ConnectionArguments) => {
-  console.log(args);
   const actions = ActionModel.find({});
 
   const data = await connectionFromMongoCursor({
@@ -76,6 +79,5 @@ export const loadActions = async (context: GraphQLContext, args: ConnectionArgum
     loader: load,
   });
 
-  console.log(data);
   return data;
 };

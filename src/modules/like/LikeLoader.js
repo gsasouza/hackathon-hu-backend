@@ -1,10 +1,13 @@
 // @flow
 import DataLoader from 'dataloader';
 import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongoose-loader';
+import { fromGlobalId } from 'graphql-relay';
 import type { ConnectionArguments } from 'graphql-relay';
 
 import LikeModel from './LikeModel';
 import type { GraphQLContext } from '../../TypeDefinition';
+
+import { importFromJson } from '../news/NewsLoader';
 
 type LikeType = {
   id: string,
@@ -61,7 +64,7 @@ const removeFalsy = obj => {
 
 export const loadLikes = async (context: GraphQLContext, args: ConnectionArguments) => {
   const likes = LikeModel.find({
-    article: args,
+    article: fromGlobalId(args.article).id,
   });
 
   return connectionFromMongoCursor({

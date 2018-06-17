@@ -4,7 +4,15 @@ import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID, GraphQLBoo
 import { globalIdField, connectionArgs, fromGlobalId } from 'graphql-relay';
 
 import { NodeField } from '../interface/NodeInterface';
-import { UserLoader, ArticleLoader, ActionLoader, AuthorLoader, LikeLoader, FollowLoader } from '../loaders';
+import {
+  UserLoader,
+  ArticleLoader,
+  ActionLoader,
+  AuthorLoader,
+  LikeLoader,
+  FollowLoader,
+  NewsLoader,
+} from '../loaders';
 
 import UserConnection from '../modules/user/UserConnection';
 import UserType from '../modules/user/UserType';
@@ -20,6 +28,9 @@ import AuthorType from '../modules/author/AuthorType';
 
 import LikeConnection from '../modules/like/LikeConnection';
 import FollowConnection from '../modules/follow/FollowConnection';
+
+import NewsConnection from '../modules/news/NewsConnection';
+import NewsType from '../modules/news/NewsType';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -162,6 +173,28 @@ export default new GraphQLObjectType({
         },
       },
       resolve: (obj, args, context) => FollowLoader.loadFollows(context, args),
+    },
+    new: {
+      type: NewsType,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLID),
+        },
+      },
+      resolve: (obj, args, context) => {
+        const { id } = fromGlobalId(args.id);
+        return NewsLoader.load(context, id);
+      },
+    },
+    news: {
+      type: NewsConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        search: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (obj, args, context) => NewsLoader.loadNews(context, args),
     },
   }),
 });

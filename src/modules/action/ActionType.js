@@ -20,7 +20,10 @@ export default new GraphQLObjectType({
     },
     description: {
       type: GraphQLString,
-      resolve: action => action.description,
+      resolve: action => {
+        console.log(action);
+        return action.description;
+      },
     },
     code: {
       type: GraphQLString,

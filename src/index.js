@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import app from './app';
 import connectDatabase from './database';
 // import { graphqlPort } from './config';
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 
 (async () => {
   try {

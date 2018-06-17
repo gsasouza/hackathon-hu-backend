@@ -280,6 +280,39 @@ type Mutation {
   FollowRemove(input: FollowRemoveInput!): FollowRemovePayload
 }
 
+"""News data"""
+type News implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  title: String
+  abstract: String
+  tag: String
+  link: String
+  time: String
+  date: String
+  image: String
+}
+
+"""A connection to a list of items."""
+type NewsConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NewsEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type NewsEdge {
+  """The item at the end of the edge"""
+  node: News
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 """An object with an ID"""
 interface Node {
   """The id of the object."""
@@ -321,6 +354,8 @@ type Query {
   likes(after: String, first: Int, before: String, last: Int, article: ID): LikeConnection
   followsFromMe(article: ID): Boolean
   follows(after: String, first: Int, before: String, last: Int, article: ID!): FollowConnection
+  new(id: ID!): News
+  news(after: String, first: Int, before: String, last: Int, search: String): NewsConnection
 }
 
 input RegisterEmailInput {

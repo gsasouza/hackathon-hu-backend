@@ -4,3 +4,4 @@ export * as ActionLoader from './modules/action/ActionLoader';
 export * as AuthorLoader from './modules/author/AuthorLoader';
 export * as LikeLoader from './modules/like/LikeLoader';
 export * as FollowLoader from './modules/follow/FollowLoader';
+export * as NewsLoader from './modules/news/NewsLoader';
